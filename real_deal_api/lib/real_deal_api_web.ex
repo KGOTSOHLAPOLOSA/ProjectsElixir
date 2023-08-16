@@ -48,6 +48,9 @@ defmodule RealDealApiWeb do
     end
   end
 
+  @spec verified_routes ::
+          {:use, [{:column, 7} | {:context, RealDealApiWeb} | {:imports, [...]}, ...],
+           [[{any, any}, ...] | {:__aliases__, [...], [...]}, ...]}
   def verified_routes do
     quote do
       use Phoenix.VerifiedRoutes,
