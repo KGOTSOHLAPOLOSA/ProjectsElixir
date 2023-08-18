@@ -17,6 +17,7 @@ defmodule RealDealApiWeb.AccountController do
           {:ok, token, _claims} <- Guardian.encode_and_sign(account),
           {:ok, %User{} = _user} <- Users.create_user(account, account_params) do
       conn
+      |> Plug.Conn.put_session(:account_id, account.id)
       |> put_status(:created)
       |> render(:accounttok, account: account ,  token: token)
     end
@@ -33,7 +34,7 @@ defmodule RealDealApiWeb.AccountController do
 
   def show(conn, %{"id" => id}) do
     account = Accounts.get_account!(id)
-    render(conn, :show, account: account)
+    render(conn, :show, account: conn.assigns.account)
   end
 
   def update(conn, %{"id" => id, "account" => account_params}) do
