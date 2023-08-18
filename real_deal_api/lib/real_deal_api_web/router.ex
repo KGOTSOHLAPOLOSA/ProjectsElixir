@@ -1,4 +1,5 @@
 defmodule RealDealApiWeb.Router do
+
   use RealDealApiWeb, :router
   use Plug.ErrorHandler
 
@@ -18,6 +19,7 @@ defmodule RealDealApiWeb.Router do
   pipeline :auth do
     plug RealDealApiWeb.Auth.Pipeline
     plug RealDealApiWeb.Auth.SetAccount
+
   end
 
   scope "/api", RealDealApiWeb do
@@ -30,6 +32,7 @@ defmodule RealDealApiWeb.Router do
   scope "/api", RealDealApiWeb do
     pipe_through [:api, :auth]
     get "/accounts/by_id/:id", AccountController, :show
+    get "/accounts/sign_out", AccountController, :sign_out
     post "/accounts/update", AccountController, :update
   end
 end
